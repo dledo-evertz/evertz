@@ -1,0 +1,1 @@
+winget install Microsoft.Teams --source winget
