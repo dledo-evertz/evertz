@@ -10,5 +10,6 @@ elseif (Test-Path "$SystemContext\winget.exe") { $winget = "$SystemContext\winge
 else { return $false }
 if ($null -ne $winget) { $winget }
 # Logs $(env:LOCALAPPDATA)\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir
+& "$winget" --version
 & "$winget" install --id "Microsoft.Teams" --source "winget" --exact --silent --accept-source-agreements --accept-package-agreements | Out-String
 #endregion
