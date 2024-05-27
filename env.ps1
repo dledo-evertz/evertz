@@ -1,0 +1,1 @@
+Get-ChildItem env:* | Sort-Object name
