@@ -1,4 +1,14 @@
 #region CODE
+
+# Override env vars to mimic local Administrator account
+$env:APPDATA = "C:\Users\Administrator\AppData\Roaming"
+$env:LOCALAPPDATA = "C:\Users\Administrator\AppData\Local"
+$env:OneDrive = "C:\Users\Administrator\OneDrive"
+$env:TMP = "C:\Users\ADMINI~1\AppData\Local\Temp"
+$env:TEMP = "C:\Users\ADMINI~1\AppData\Local\Temp"
+$env:USERNAME = "Administrator"
+$env:USERPROFILE = "C:\Users\Administrator"
+
 $winget = $null
 $DesktopAppInstaller = "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_*_x64__8wekyb3d8bbwe"
 $SystemContext = Resolve-Path "$DesktopAppInstaller"
