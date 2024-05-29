@@ -15,7 +15,7 @@ function Check-Winget {
     else { return $false }
 
     if ($null -ne $global:winget) { 
-        Write-Output "winget: $global:wingett"
+        Write-Output "winget: $global:winget"
         Write-Output "winget version: $(& $global:winget --version)"
     }
     else {
