@@ -27,7 +27,7 @@ function Check-Winget {
 # Function to update Winget
 function Update-Winget {
     try {
-        & $winget upgrade --id Microsoft.Winget.Client --accept-source-agreements --accept-package-agreements
+        & $winget upgrade --id Microsoft.Winget.Client --accept-source-agreements --accept-package-agreements --verbose
         Write-Output "Winget has been updated."
     }
     catch {
@@ -58,7 +58,7 @@ function Install-Apps {
 Check-Winget
 
 # Update Winget to the latest version
-Update-Winget
+#Update-Winget
 
 # List of applications to install
 $appsToInstall = @(
