@@ -1,7 +1,7 @@
 # get username
 $username = get-wmiobject win32_computersystem | Select-Object username | Out-String # EVERTZ_MICROSYS\username
 
-$username = $username.ToString().Split('\')[-1]
+$username = $username.username.ToString().Split('\')[-1]
 
 Write-Output "username: $username"
 
