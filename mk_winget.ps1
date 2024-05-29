@@ -16,8 +16,7 @@ function Check-Winget {
 
     if ($null -ne $winget) { 
         Write-Output "winget: $winget"
-        Write-Output "winget version: "
-        $ $winget --version
+        Write-Output "winget version: $(& $winget --version)"
     }
     else {
         Write-Output "Winget is not installed. Please install Winget v1.7 or higher from https://github.com/microsoft/winget-cli/releases"
@@ -28,7 +27,7 @@ function Check-Winget {
 # Function to update Winget
 function Update-Winget {
     try {
-        $ $winget upgrade --id Microsoft.Winget.Client --accept-source-agreements --accept-package-agreements
+        & $winget upgrade --id Microsoft.Winget.Client --accept-source-agreements --accept-package-agreements
         Write-Output "Winget has been updated."
     }
     catch {
@@ -46,7 +45,7 @@ function Install-Apps {
 
     foreach ($App in $Apps) {
         try {
-            $ $winget install --id $App --source "winget" --exact --silent --accept-source-agreements --accept-package-agreements --verbose | Out-String
+            & $winget install --id $App --source "winget" --exact --silent --accept-source-agreements --accept-package-agreements --verbose | Out-String
             Write-Output "$App has been installed."
         }
         catch {
