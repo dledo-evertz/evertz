@@ -16,7 +16,8 @@ function Check-Winget {
 
     if ($null -ne $winget) { 
         Write-Output "winget: $winget"
-        Write-Output "winget version: $($ $winget --version)"
+        Write-Output "winget version: "
+        $ $winget --version
     }
     else {
         Write-Output "Winget is not installed. Please install Winget v1.7 or higher from https://github.com/microsoft/winget-cli/releases"
