@@ -31,9 +31,9 @@ function Update-Winget {
         Write-Output "Winget has been updated."
     }
     catch {
-        $err = Write-Warning $_
-            Write-Warning "Failed to update winget"
-            Write-Warning "$err"
+        $err = $_
+        Write-Warning "Failed to update winget"
+        Write-Warning "$err"
         exit 1
     }
 }
@@ -51,7 +51,7 @@ function Install-Apps {
             Write-Output "$App has been installed."
         }
         catch {
-            $err = Write-Warning $_
+            $err = $_
             Write-Warning "Failed to install $App"
             Write-Warning "$err"
         }
