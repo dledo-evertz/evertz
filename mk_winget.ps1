@@ -1,4 +1,4 @@
-﻿$winget = $null
+﻿$global:winget = $null
 
 # Function to check if Winget is installed
 function Check-Winget {
@@ -9,14 +9,14 @@ function Check-Winget {
 
     $UserContext = Get-Command winget.exe -ErrorAction SilentlyContinue
 
-    if ($UserContext) { $winget = $UserContext.Source }
+    if ($UserContext) { $global:winget = $UserContext.Source }
     #elseif (Test-Path "$SystemContext\AppInstallerCLI.exe") { $winget = "$SystemContext\AppInstallerCLI.exe" }
     elseif (Test-Path "$SystemContext\winget.exe") { $winget = "$SystemContext\winget.exe" }
     else { return $false }
 
-    if ($null -ne $winget) { 
-        Write-Output "winget: $winget"
-        Write-Output "winget version: $(& $winget --version)"
+    if ($null -ne $global:winget) { 
+        Write-Output "winget: $global:wingett"
+        Write-Output "winget version: $(& $global:winget --version)"
     }
     else {
         Write-Output "Winget is not installed. Please install Winget v1.7 or higher from https://github.com/microsoft/winget-cli/releases"
@@ -27,13 +27,12 @@ function Check-Winget {
 # Function to update Winget
 function Update-Winget {
     try {
-        & $winget upgrade --id Microsoft.Winget.Client --accept-source-agreements --accept-package-agreements --verbose
+        & $global:winget upgrade --id Microsoft.Winget.Client --accept-source-agreements --accept-package-agreements --verbose
         Write-Output "Winget has been updated."
     }
     catch {
-        $err = $Error[0]
         Write-Warning "Failed to update winget"
-        Write-Warning "$err"
+        Write-Warning $Error
         exit 1
     }
 }
@@ -47,13 +46,12 @@ function Install-Apps {
 
     foreach ($App in $Apps) {
         try {
-            & $winget install --id $App --source "winget" --exact --silent --accept-source-agreements --accept-package-agreements --verbose | Out-String
+            & $global:winget install --id $App --source "winget" --exact --silent --accept-source-agreements --accept-package-agreements --verbose | Out-String
             Write-Output "$App has been installed."
         }
         catch {
-            $err = $Error[0]
             Write-Warning "Failed to install $App"
-            Write-Warning "$err"
+            Write-Warning $Error[0]
         }
     }
 }
