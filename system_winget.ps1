@@ -18,6 +18,8 @@ $env:USERNAME = "$username"
 $env:USERPROFILE = "C:\Users\$username"
 ""
 
+Get-ChildItem env:* | Sort-Object name
+
 $winget = $null
 $DesktopAppInstaller = "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_*_x64__8wekyb3d8bbwe"
 $SystemContext = Resolve-Path "$DesktopAppInstaller"
