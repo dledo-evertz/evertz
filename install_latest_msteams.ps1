@@ -2,7 +2,7 @@
 $teamsDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2243204&clcid=0x409"
 
 # Define the path to download the installer
-$installerPath = "C:\Temp\TeamsBootstrapInstaller.exe"
+$installerPath = "$env:TEMP\TeamsBootstrapInstaller.exe"
 
 # Function to check if Microsoft Teams Windows App is installed
 function CheckIfTeamsInstalled {
@@ -29,7 +29,7 @@ function InstallOrUpdateTeams {
 
         # Check for latest version
         $wingetTeams = Invoke-RestMethod -Uri "https://api.github.com/repos/microsoft/winget-pkgs/contents/manifests/m/Microsoft/Teams"
-        $wingetTeamsLatestIndex = ($winget_NewTeams.Count - 3) # subtract 3 to avoid "classic" & "free" versions
+        $wingetTeamsLatestIndex = ($wingetTeams.Count - 3) # subtract 3 to avoid "classic" & "free" versions
         $teamsLatestVersion = ($wingetTeams.item($wingetTeamsLatestIndex)).Name
 
         if ($installedVersion -ne $teamsLatestVersion) {
