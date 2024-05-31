@@ -37,9 +37,10 @@ function InstallOrUpdateTeams {
             try {
                 # Download the latest version of Microsoft Teams Windows App
                 Invoke-WebRequest -Uri $teamsDownloadUrl -OutFile $installerPath
+                Write-Output "Downloaded teams from $teamsDownloadUrl at $installerPath"
 
                 # Install Microsoft Teams Windows App silently
-                Start-Process -FilePath $installerPath -ArgumentList "/silent" -Wait
+                Start-Process -FilePath $installerPath -Wait #-ArgumentList "/silent"
 
                 # Clean up the installer
                 Remove-Item $installerPath
@@ -54,9 +55,10 @@ function InstallOrUpdateTeams {
         try {
             # Download the latest version of Microsoft Teams Windows App
             Invoke-WebRequest -Uri $teamsDownloadUrl -OutFile $installerPath
+            Write-Output "Downloaded teams from $teamsDownloadUrl at $installerPath"
 
             # Install Microsoft Teams Windows App silently
-            Start-Process -FilePath $installerPath -ArgumentList "-p" -Wait
+            Start-Process -FilePath $installerPath -Wait #-ArgumentList "-p"
 
             # Clean up the installer
             Remove-Item $installerPath
