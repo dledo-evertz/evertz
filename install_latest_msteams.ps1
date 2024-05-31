@@ -40,7 +40,7 @@ function InstallOrUpdateTeams {
                 Write-Output "Downloaded teams from $teamsDownloadUrl at $installerPath"
 
                 # Install Microsoft Teams Windows App silently
-                Start-Process -FilePath $installerPath -Wait #-ArgumentList "/silent"
+                Start-Process -FilePath $installerPath -Wait -ArgumentList "/silent"
 
                 # Clean up the installer
                 Remove-Item $installerPath
@@ -58,7 +58,7 @@ function InstallOrUpdateTeams {
             Write-Output "Downloaded teams from $teamsDownloadUrl at $installerPath"
 
             # Install Microsoft Teams Windows App silently
-            Start-Process -FilePath $installerPath -Wait #-ArgumentList "-p"
+            Start-Process -FilePath $installerPath -Wait -ArgumentList "-p"
 
             # Clean up the installer
             Remove-Item $installerPath
