@@ -14,7 +14,7 @@ function CheckIfTeamsInstalled {
 function GetTeamsInstalledVersion {
     $teamsVersions = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "MSTeams" } | Select-Object Version | Sort-Object
     if ($teamsVersions) {
-        return $teamsVersions[0]
+        return $teamsVersions[0].Version
     } else {
         return $null
     }
