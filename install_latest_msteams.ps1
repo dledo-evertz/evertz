@@ -6,15 +6,15 @@ $installerPath = "$env:TEMP\TeamsBootstrapInstaller.exe"
 
 # Function to check if Microsoft Teams Windows App is installed
 function CheckIfTeamsInstalled {
-    $teamsInstalled = Get-AppxPackage | Where-Object { $_.Name -eq "MSTeams" }
+    $teamsInstalled = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "MSTeams" }
     return [bool]$teamsInstalled
 }
 
 # Function to get the installed version of Microsoft Teams Windows App
 function GetTeamsInstalledVersion {
-    $teamsInstalled = Get-AppxPackage | Where-Object { $_.Name -eq "MSTeams" }
-    if ($teamsInstalled) {
-        return $teamsInstalled.Version
+    $teamsVersions = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "MSTeams" } | Select-Object Version | Sort-Object
+    if ($teamsVersions) {
+        return $teamsVersions[0]
     } else {
         return $null
     }
