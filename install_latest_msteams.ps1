@@ -5,17 +5,24 @@ $teamsDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2243204&clcid=0x409
 $installerPath = "$env:TEMP\TeamsBootstrapInstaller.exe"
 
 # Function to check if Microsoft Teams Windows App is installed
-function CheckIfTeamsInstalled {
-    $teamsInstalled = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "MSTeams" }
-    return [bool]$teamsInstalled
-}
+# function CheckIfTeamsInstalled {
+#     $teamsInstalled = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "MSTeams" }
+#     return [bool]$teamsInstalled
+# }
 
 # Function to get the installed version of Microsoft Teams Windows App
 function GetTeamsInstalledVersion {
-    $teamsVersions = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "MSTeams" } | Select-Object Version | Sort-Object
-    if ($teamsVersions) {
-        return $teamsVersions[0].Version
-    } else {
+    try {
+        $teamsVersions = Get-AppxPackage -AllUsers -ErrorAction Stop | Where-Object { $_.Name -eq "MSTeams" } | Select-Object Version | Sort-Object
+        if ($teamsVersions) {
+            return $teamsVersions[0].Version
+        }
+        else {
+            return $null
+        }
+    }
+    catch {
+        Write-Host "Failed to get teams version. Error: $_"
         return $null
     }
 }
@@ -48,11 +55,16 @@ function InstallOrUpdateTeams {
                 Remove-Item $installerPath
 
                 Write-Host "Microsoft Teams Windows App has been updated successfully."
-            } catch {
+            }
+            catch {
                 Write-Host "Failed to update Microsoft Teams Windows App. Error: $_"
             }
         }
-    } else {
+        else {
+            Write-Host "Microsoft Teams latest version is already installed."
+        }
+    }
+    else {
         Write-Host "Microsoft Teams Windows App is not installed. Downloading and installing..."
         try {
             # Download the latest version of Microsoft Teams Windows App
@@ -66,7 +78,8 @@ function InstallOrUpdateTeams {
             Remove-Item $installerPath
 
             Write-Host "Microsoft Teams Windows App has been installed successfully."
-        } catch {
+        }
+        catch {
             Write-Host "Failed to install Microsoft Teams Windows App. Error: $_"
         }
     }
